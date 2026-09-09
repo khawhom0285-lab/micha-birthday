@@ -1,0 +1,1877 @@
+```html
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<title>Happy Birthday Micha 💗</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  overflow:hidden;
+  font-family:
+    "Arial Rounded MT Bold",
+    "Noto Sans Thai",
+    sans-serif;
+  background:#fff4fa;
+  touch-action:manipulation;
+}
+
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+button{
+  font-family:inherit;
+  border:0;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+
+.screen{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+.screen.active{
+  display:flex;
+}
+
+.bg{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 15% 20%, #ffd9eb 0 5%, transparent 6%),
+    radial-gradient(circle at 85% 15%, #e8ddff 0 4%, transparent 5%),
+    radial-gradient(circle at 80% 80%, #dff7ff 0 5%, transparent 6%),
+    linear-gradient(135deg,#fff7fb,#fff0f7);
+}
+
+/* =========================
+   GENERAL CARD
+========================= */
+
+.card{
+  position:relative;
+  z-index:5;
+  width:min(90%,520px);
+  padding:32px 24px;
+  border-radius:30px;
+  background:rgba(255,255,255,.88);
+  box-shadow:0 20px 60px rgba(183,92,137,.18);
+  text-align:center;
+  backdrop-filter:blur(10px);
+}
+
+.card h1{
+  margin:0 0 12px;
+  color:#e86c9d;
+  font-size:clamp(30px,8vw,48px);
+}
+
+.card h2{
+  margin:0 0 12px;
+  color:#d96a98;
+}
+
+.card p{
+  margin:8px 0;
+  color:#777;
+  line-height:1.7;
+}
+
+.main-btn{
+  margin-top:20px;
+  padding:14px 28px;
+  border-radius:999px;
+  color:white;
+  background:linear-gradient(135deg,#f48bb5,#c99af7);
+  box-shadow:0 8px 20px rgba(221,116,163,.25);
+  font-size:17px;
+  transition:.15s;
+}
+
+.main-btn:active{
+  transform:scale(.94);
+}
+
+/* =========================
+   STORY
+========================= */
+
+.story-character{
+  font-size:80px;
+  margin-bottom:10px;
+  animation:bob 2s infinite ease-in-out;
+}
+
+@keyframes bob{
+  50%{transform:translateY(-8px)}
+}
+
+/* =========================
+   GAME UI
+========================= */
+
+.game-container{
+  position:relative;
+  z-index:5;
+  width:100%;
+  height:100%;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.game-title{
+  margin:5px 0 4px;
+  color:#df6d9e;
+  font-size:25px;
+}
+
+.game-subtitle{
+  color:#888;
+  font-size:14px;
+  margin-bottom:8px;
+}
+
+.score{
+  position:relative;
+  z-index:100;
+  padding:7px 15px;
+  border-radius:999px;
+  background:white;
+  color:#d96193;
+  box-shadow:0 5px 15px rgba(0,0,0,.08);
+  font-size:14px;
+}
+
+.game-area{
+  position:relative;
+  width:min(94vw,520px);
+  height:min(70vh,600px);
+  margin-top:10px;
+  overflow:hidden;
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,255,255,.9),transparent 18%),
+    linear-gradient(180deg,#fffafd,#fceef8);
+  box-shadow:
+    inset 0 0 30px rgba(220,130,175,.08),
+    0 15px 35px rgba(0,0,0,.08);
+  touch-action:none;
+}
+
+/* =========================
+   FALLING OBJECTS
+========================= */
+
+.falling-object{
+  position:absolute;
+  z-index:10;
+  font-size:38px;
+  line-height:1;
+  pointer-events:auto;
+  filter:drop-shadow(0 5px 5px rgba(0,0,0,.12));
+  animation:wiggle 1.5s infinite ease-in-out;
+}
+
+@keyframes wiggle{
+  50%{
+    transform:rotate(8deg) scale(1.05);
+  }
+}
+
+.fake-object{
+  opacity:.8;
+}
+
+/* =========================
+   WRONG MESSAGE
+========================= */
+
+.wrong-pop{
+  position:absolute;
+  z-index:200;
+  pointer-events:none;
+  padding:7px 13px;
+  border-radius:999px;
+  background:white;
+  color:#df709c;
+  font-size:14px;
+  font-weight:bold;
+  box-shadow:0 7px 20px rgba(0,0,0,.12);
+  animation:wrongPop .8s ease forwards;
+}
+
+@keyframes wrongPop{
+  0%{
+    opacity:0;
+    transform:translate(-50%,0) scale(.7);
+  }
+  20%{
+    opacity:1;
+    transform:translate(-50%,-10px) scale(1);
+  }
+  100%{
+    opacity:0;
+    transform:translate(-50%,-55px) scale(.9);
+  }
+}
+
+/* =========================
+   STARS
+========================= */
+
+.falling-star{
+  text-shadow:0 0 12px #ffd86b;
+}
+
+/* =========================
+   STRAWBERRY
+========================= */
+
+.berry{
+  position:absolute;
+  z-index:20;
+  font-size:38px;
+  line-height:1;
+  pointer-events:none;
+  filter:drop-shadow(0 5px 5px rgba(0,0,0,.12));
+}
+
+.basket{
+  position:absolute;
+  z-index:100;
+  bottom:25px;
+  left:50%;
+  width:90px;
+  height:58px;
+  transform:translateX(-50%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:55px;
+  cursor:grab;
+  touch-action:none;
+}
+
+.basket-shadow{
+  position:absolute;
+  z-index:90;
+  bottom:19px;
+  left:50%;
+  width:90px;
+  height:15px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:rgba(0,0,0,.1);
+  filter:blur(5px);
+}
+
+/* =========================
+   HEART
+========================= */
+
+.falling-heart{
+  position:absolute;
+  z-index:20;
+  font-size:40px;
+  line-height:1;
+  text-shadow:0 5px 10px rgba(221,91,139,.2);
+}
+
+/* =========================
+   BALLOON
+========================= */
+
+.falling-balloon{
+  position:absolute;
+  z-index:20;
+  font-size:48px;
+  line-height:1;
+  filter:drop-shadow(0 6px 7px rgba(0,0,0,.12));
+}
+
+.balloon-pop{
+  animation:balloonPop .3s ease forwards;
+}
+
+@keyframes balloonPop{
+  0%{
+    transform:scale(1);
+    opacity:1;
+  }
+  100%{
+    transform:scale(1.8);
+    opacity:0;
+  }
+}
+
+/* =========================
+   BALLOON MESSAGE
+========================= */
+
+.balloon-message{
+  position:absolute;
+  z-index:500;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%) scale(.7);
+  width:min(85%,380px);
+  padding:20px 22px;
+  border-radius:25px;
+  background:rgba(255,255,255,.96);
+  box-shadow:0 18px 45px rgba(201,91,139,.2);
+  text-align:center;
+  color:#d95d91;
+  font-size:20px;
+  line-height:1.5;
+  font-weight:bold;
+  opacity:0;
+  animation:messageShow 1.25s ease forwards;
+  pointer-events:none;
+}
+
+.balloon-message small{
+  display:block;
+  margin-top:6px;
+  color:#aaa;
+  font-size:12px;
+  font-weight:normal;
+}
+
+@keyframes messageShow{
+  0%{
+    opacity:0;
+    transform:translate(-50%,-50%) scale(.7);
+  }
+  20%{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1.05);
+  }
+  35%{
+    transform:translate(-50%,-50%) scale(1);
+  }
+  80%{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1);
+  }
+  100%{
+    opacity:0;
+    transform:translate(-50%,-50%) scale(.95);
+  }
+}
+
+/* =========================
+   WISH
+========================= */
+
+.wish-box{
+  margin:20px auto;
+  padding:18px;
+  border-radius:20px;
+  background:#fff4f9;
+  border:2px dashed #f2a4c3;
+}
+
+.wish-input{
+  width:100%;
+  min-height:110px;
+  resize:none;
+  border:0;
+  outline:none;
+  border-radius:16px;
+  padding:15px;
+  background:white;
+  font-family:inherit;
+  font-size:16px;
+  color:#777;
+}
+
+/* =========================
+   CAKE
+========================= */
+
+.cake-screen{
+  flex-direction:column;
+}
+
+.cake-wrap{
+  position:relative;
+  width:270px;
+  height:250px;
+  margin:10px auto 15px;
+}
+
+.plate{
+  position:absolute;
+  bottom:10px;
+  left:50%;
+  width:270px;
+  height:30px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:#eee;
+  box-shadow:0 8px 10px rgba(0,0,0,.12);
+}
+
+.cake-bottom{
+  position:absolute;
+  bottom:30px;
+  left:50%;
+  width:220px;
+  height:85px;
+  transform:translateX(-50%);
+  border-radius:20px 20px 15px 15px;
+  background:linear-gradient(#f59bba,#ed729e);
+  box-shadow:0 8px 15px rgba(203,88,132,.2);
+}
+
+.cake-top{
+  position:absolute;
+  bottom:100px;
+  left:50%;
+  width:230px;
+  height:65px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 5px 10px rgba(0,0,0,.08);
+}
+
+.frosting{
+  position:absolute;
+  left:0;
+  top:15px;
+  width:100%;
+  height:45px;
+  border-radius:50%;
+  background:#fff8fc;
+}
+
+.drip{
+  position:absolute;
+  top:35px;
+  width:24px;
+  height:35px;
+  border-radius:0 0 15px 15px;
+  background:#fff8fc;
+}
+
+.drip:nth-child(1){left:35px}
+.drip:nth-child(2){left:90px;height:25px}
+.drip:nth-child(3){right:45px;height:32px}
+
+.cake-strawberry{
+  position:absolute;
+  bottom:137px;
+  font-size:30px;
+}
+
+.cake-strawberry.left{left:50px}
+.cake-strawberry.right{right:50px}
+
+.candle{
+  position:absolute;
+  bottom:155px;
+  left:50%;
+  width:14px;
+  height:50px;
+  transform:translateX(-50%);
+  border-radius:8px;
+  background:repeating-linear-gradient(
+    45deg,
+    #cba1ff 0 7px,
+    #fff 7px 14px
+  );
+}
+
+.flame{
+  position:absolute;
+  bottom:202px;
+  left:50%;
+  width:22px;
+  height:32px;
+  transform:translateX(-50%);
+  border-radius:50% 50% 50% 50%;
+  background:#ffd45d;
+  box-shadow:0 0 25px #ffd45d;
+  animation:flame .45s infinite alternate;
+}
+
+@keyframes flame{
+  from{transform:translateX(-50%) scale(.9)}
+  to{transform:translateX(-50%) scale(1.08)}
+}
+
+.blow-meter{
+  width:min(80%,320px);
+  height:15px;
+  margin:10px auto;
+  border-radius:999px;
+  overflow:hidden;
+  background:#eee;
+}
+
+.blow-fill{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#f7a1c5,#bd9af8);
+  transition:.1s;
+}
+
+.blow-btn{
+  padding:15px 30px;
+  border-radius:999px;
+  background:white;
+  color:#d65f91;
+  box-shadow:0 7px 20px rgba(0,0,0,.1);
+  font-size:17px;
+}
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confetti{
+  position:absolute;
+  z-index:1000;
+  width:9px;
+  height:15px;
+  animation:confettiFall 1.7s linear forwards;
+}
+
+@keyframes confettiFall{
+  to{
+    transform:translateY(100vh) rotate(720deg);
+    opacity:0;
+  }
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final-heart{
+  font-size:75px;
+  animation:heartBeat 1s infinite;
+}
+
+@keyframes heartBeat{
+  50%{transform:scale(1.15)}
+}
+
+.final-message{
+  font-size:20px;
+  line-height:1.8;
+  color:#777;
+}
+
+.wish-display{
+  margin:20px 0;
+  padding:18px;
+  border-radius:20px;
+  background:#fff3f8;
+  color:#d65f91;
+  font-size:18px;
+  line-height:1.7;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-height:650px){
+  .game-area{
+    height:60vh;
+  }
+
+  .game-title{
+    font-size:22px;
+  }
+
+  .game-subtitle{
+    margin-bottom:3px;
+  }
+
+  .card{
+    padding:24px 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<section id="intro" class="screen active">
+  <div class="bg"></div>
+
+  <div class="card">
+    <div style="font-size:70px">🎂</div>
+
+    <h1>Happy Birthday</h1>
+    <h2>Micha 💗</h2>
+
+    <p>
+      วันนี้มีบางอย่างอยากให้เธอลองทำดู...
+    </p>
+
+    <p>
+      เป็นการเดินทางเล็กๆ<br>
+      ที่มีของขวัญซ่อนอยู่ระหว่างทาง ✨
+    </p>
+
+    <button class="main-btn" onclick="go('story')">
+      เริ่มกันเลย 🌷
+    </button>
+  </div>
+</section>
+
+
+<!-- =========================
+     STORY
+========================= -->
+
+<section id="story" class="screen">
+  <div class="bg"></div>
+
+  <div class="card">
+    <div class="story-character">🐰</div>
+
+    <h2>เรื่องราวเล็กๆ ของวันนี้</h2>
+
+    <p>
+      มีใครบางคนเตรียมอะไรบางอย่างไว้ให้ Micha
+    </p>
+
+    <p>
+      แต่ระหว่างทางกลับมีของพวกนี้<br>
+      กระจัดกระจายเต็มไปหมดเลย...
+    </p>
+
+    <p>
+      ถ้าอยากไปถึงของขวัญสุดท้าย<br>
+      ต้องผ่านด่านเล็กๆ ทั้ง 4 ด่านก่อนนะ 🎀
+    </p>
+
+    <button class="main-btn" onclick="startStarGame()">
+      ไปด่านแรก ⭐
+    </button>
+  </div>
+</section>
+
+
+<!-- =========================
+     GAME 1
+========================= -->
+
+<section id="game1" class="screen">
+  <div class="bg"></div>
+
+  <div class="game-container">
+
+    <h2 class="game-title">⭐ เก็บดาวให้ครบ</h2>
+
+    <div class="game-subtitle">
+      แตะดาวจริงให้ครบ 5 ดวงนะ
+      แต่ระวังดาวหลอกด้วย 👀
+    </div>
+
+    <div id="score1" class="score">
+      0 / 5
+    </div>
+
+    <div id="starArea" class="game-area"></div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     GAME 2
+========================= -->
+
+<section id="game2" class="screen">
+  <div class="bg"></div>
+
+  <div class="game-container">
+
+    <h2 class="game-title">🍓 เก็บสตรอว์เบอร์รี</h2>
+
+    <div class="game-subtitle">
+      ลากตะกร้าไปรับ 🍓 ให้ได้ 5 ลูก
+      แต่อย่ารับผลไม้หลอกนะ!
+    </div>
+
+    <div id="score2" class="score">
+      0 / 5
+    </div>
+
+    <div id="berryArea" class="game-area"></div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     GAME 3
+========================= -->
+
+<section id="game3" class="screen">
+  <div class="bg"></div>
+
+  <div class="game-container">
+
+    <h2 class="game-title">💗 ตามหาเจ้าหัวใจ</h2>
+
+    <div class="game-subtitle">
+      แตะหัวใจจริงให้ครบ 5 ดวง
+      หัวใจสีอื่นเป็นตัวหลอกนะ 💕
+    </div>
+
+    <div id="score3" class="score">
+      0 / 5
+    </div>
+
+    <div id="heartArea" class="game-area"></div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     GAME 4
+========================= -->
+
+<section id="game4" class="screen">
+  <div class="bg"></div>
+
+  <div class="game-container">
+
+    <h2 class="game-title">🎈 ลูกโป่งคำอวยพร</h2>
+
+    <div class="game-subtitle">
+      แตะลูกโป่งจริงให้ครบ 7 ลูก
+      เพราะแต่ละลูกมีข้อความถึง Micha 💗
+    </div>
+
+    <div id="score4" class="score">
+      0 / 7
+    </div>
+
+    <div id="balloonArea" class="game-area"></div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     MICHA WISH
+========================= -->
+
+<section id="michaWish" class="screen">
+  <div class="bg"></div>
+
+  <div class="card">
+
+    <div style="font-size:60px">💌</div>
+
+    <h2>ก่อนจะไปต่อ...</h2>
+
+    <p>
+      อยากให้ Micha ลองเขียนคำอวยพร<br>
+      ให้ตัวเองสักหนึ่งข้อ
+    </p>
+
+    <div class="wish-box">
+      <textarea
+        id="wishInput"
+        class="wish-input"
+        placeholder="ปีนี้ฉันอยาก..."
+      ></textarea>
+    </div>
+
+    <button class="main-btn" onclick="saveWish()">
+      เก็บคำอวยพรนี้ไว้ ✨
+    </button>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     CAKE
+========================= -->
+
+<section id="cake" class="screen cake-screen">
+  <div class="bg"></div>
+
+  <div class="card">
+
+    <h2>🎂 ถึงเวลาของเค้กแล้ว!</h2>
+
+    <p>
+      หลับตาแล้วเป่าเทียนเลย<br>
+      กดปุ่มรัวๆ เพื่อเป่าเทียนนะ 💨
+    </p>
+
+    <div class="cake-wrap">
+
+      <div class="plate"></div>
+
+      <div class="cake-bottom"></div>
+
+      <div class="cake-top">
+        <div class="frosting"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+      </div>
+
+      <div class="cake-strawberry left">🍓</div>
+      <div class="cake-strawberry right">🍓</div>
+
+      <div class="candle"></div>
+      <div id="flame" class="flame"></div>
+
+    </div>
+
+    <div class="blow-meter">
+      <div id="blowFill" class="blow-fill"></div>
+    </div>
+
+    <button
+      id="blowBtn"
+      class="blow-btn"
+      onpointerdown="blow()"
+    >
+      💨 เป่าเทียน!
+    </button>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     OUR MESSAGE
+========================= -->
+
+<section id="ourMessage" class="screen">
+  <div class="bg"></div>
+
+  <div class="card">
+
+    <div style="font-size:70px">💗</div>
+
+    <h2>สุขสันต์วันเกิดนะ Micha</h2>
+
+    <p class="final-message">
+      ขอให้ปีนี้เป็นอีกหนึ่งปีที่มีเรื่องดีๆ<br>
+      เข้ามาเยอะกว่าที่ผ่านมา
+    </p>
+
+    <p class="final-message">
+      ขอให้ได้ทำในสิ่งที่อยากทำ<br>
+      ได้เจอผู้คนที่ทำให้ยิ้ม<br>
+      และมีความสุขกับทุกวันที่ได้ใช้ชีวิตนะ 🌷
+    </p>
+
+    <button class="main-btn" onclick="showEnding()">
+      เปิดข้อความสุดท้าย 💌
+    </button>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     ENDING
+========================= -->
+
+<section id="ending" class="screen">
+  <div class="bg"></div>
+
+  <div class="card">
+
+    <div class="final-heart">💗</div>
+
+    <h2>สำหรับ Micha</h2>
+
+    <p>
+      คำอวยพรที่ Micha เขียนไว้วันนี้...
+    </p>
+
+    <div id="wishDisplay" class="wish-display"></div>
+
+    <p class="final-message">
+      ขอให้คำอวยพรที่ Micha เขียนไว้ในวันนี้<br>
+      เป็นจริงสักวันนะ 🌟
+    </p>
+
+    <p style="color:#d86a98;font-weight:bold">
+      Happy Birthday, Micha 🎂💗
+    </p>
+
+  </div>
+</section>
+
+
+<script>
+
+/* =====================================================
+   BASIC SCREEN
+===================================================== */
+
+function go(id){
+
+  document.querySelectorAll(".screen")
+    .forEach(screen => screen.classList.remove("active"));
+
+  document.getElementById(id)
+    .classList.add("active");
+}
+
+
+/* =====================================================
+   WRONG FEEDBACK
+===================================================== */
+
+function showWrong(area,x,y,text="อ๊ะ! หลอกนะ 😂"){
+
+  const msg=document.createElement("div");
+
+  msg.className="wrong-pop";
+  msg.textContent=text;
+
+  msg.style.left=x+"px";
+  msg.style.top=y+"px";
+
+  area.appendChild(msg);
+
+  setTimeout(()=>{
+    msg.remove();
+  },800);
+}
+
+
+/* =====================================================
+   GAME 1 — FALLING STARS
+===================================================== */
+
+let stars=0;
+let starSpawner=null;
+
+function startStarGame(){
+
+  go("game1");
+
+  stars=0;
+
+  clearInterval(starSpawner);
+
+  const area=document.getElementById("starArea");
+
+  area.innerHTML="";
+
+  updateScore1();
+
+  starSpawner=setInterval(spawnStar,650);
+
+  for(let i=0;i<4;i++){
+    setTimeout(spawnStar,i*180);
+  }
+}
+
+function updateScore1(){
+
+  document.getElementById("score1")
+    .textContent=stars+" / 5";
+}
+
+function spawnStar(){
+
+  const area=document.getElementById("starArea");
+
+  const obj=document.createElement("div");
+
+  const isReal=Math.random()<.70;
+
+  obj.className="falling-object falling-star";
+
+  if(!isReal){
+
+    obj.classList.add("fake-object");
+
+    const fakeStars=[
+      "🌟",
+      "✨",
+      "💫",
+      "✦"
+    ];
+
+    obj.textContent=
+      fakeStars[Math.floor(Math.random()*fakeStars.length)];
+
+  }else{
+
+    obj.textContent="⭐";
+  }
+
+  const x=Math.random()*(area.clientWidth-50);
+
+  obj.style.left=x+"px";
+  obj.style.top="-50px";
+
+  area.appendChild(obj);
+
+  let y=-50;
+
+  const speed=1.5+Math.random()*1.4;
+
+  function fall(){
+
+    if(!obj.isConnected)return;
+
+    y+=speed;
+
+    obj.style.top=y+"px";
+
+    if(y>area.clientHeight+50){
+
+      obj.remove();
+      return;
+    }
+
+    requestAnimationFrame(fall);
+  }
+
+  requestAnimationFrame(fall);
+
+  obj.addEventListener("pointerdown",function(e){
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const rect=area.getBoundingClientRect();
+
+    const px=e.clientX-rect.left;
+    const py=e.clientY-rect.top;
+
+    obj.remove();
+
+    if(isReal){
+
+      stars++;
+
+      updateScore1();
+
+      if(stars>=5){
+
+        clearInterval(starSpawner);
+
+        setTimeout(startBerryGame,500);
+      }
+
+    }else{
+
+      showWrong(area,px,py);
+    }
+
+  });
+}
+
+
+/* =====================================================
+   GAME 2 — STRAWBERRY BASKET
+===================================================== */
+
+let berries=0;
+let berrySpawner=null;
+let basket=null;
+
+function startBerryGame(){
+
+  go("game2");
+
+  berries=0;
+
+  clearInterval(berrySpawner);
+
+  const area=document.getElementById("berryArea");
+
+  area.innerHTML="";
+
+  updateScore2();
+
+  basket=document.createElement("div");
+
+  basket.className="basket";
+  basket.textContent="🧺";
+
+  area.appendChild(basket);
+
+  const shadow=document.createElement("div");
+
+  shadow.className="basket-shadow";
+
+  area.appendChild(shadow);
+
+  setupBasket();
+
+  berrySpawner=setInterval(spawnBerry,750);
+
+  for(let i=0;i<3;i++){
+
+    setTimeout(spawnBerry,i*250);
+  }
+}
+
+function updateScore2(){
+
+  document.getElementById("score2")
+    .textContent=berries+" / 5";
+}
+
+function setupBasket(){
+
+  const area=document.getElementById("berryArea");
+
+  let dragging=false;
+
+  function move(clientX){
+
+    const rect=area.getBoundingClientRect();
+
+    let x=clientX-rect.left;
+
+    const half=basket.offsetWidth/2;
+
+    x=Math.max(
+      half,
+      Math.min(area.clientWidth-half,x)
+    );
+
+    basket.style.left=x+"px";
+
+    const shadow=area.querySelector(".basket-shadow");
+
+    if(shadow){
+      shadow.style.left=x+"px";
+    }
+  }
+
+  basket.addEventListener("pointerdown",e=>{
+
+    dragging=true;
+
+    basket.setPointerCapture(e.pointerId);
+
+    move(e.clientX);
+  });
+
+  basket.addEventListener("pointermove",e=>{
+
+    if(!dragging)return;
+
+    move(e.clientX);
+  });
+
+  basket.addEventListener("pointerup",()=>{
+
+    dragging=false;
+  });
+
+  basket.addEventListener("pointercancel",()=>{
+
+    dragging=false;
+  });
+
+}
+
+function spawnBerry(){
+
+  const area=document.getElementById("berryArea");
+
+  if(!basket)return;
+
+  const berry=document.createElement("div");
+
+  berry.className="berry";
+
+  const isReal=Math.random()<.65;
+
+  berry.dataset.real=isReal;
+
+  if(isReal){
+
+    berry.textContent="🍓";
+
+  }else{
+
+    const fake=[
+      "🍎",
+      "🍊",
+      "🍒",
+      "🥝"
+    ];
+
+    berry.textContent=
+      fake[Math.floor(Math.random()*fake.length)];
+
+    berry.classList.add("fake-object");
+  }
+
+  const x=Math.random()*(area.clientWidth-45);
+
+  berry.style.left=x+"px";
+  berry.style.top="-50px";
+
+  area.appendChild(berry);
+
+  let y=-50;
+
+  const speed=1.8+Math.random()*1.5;
+
+  function fall(){
+
+    if(!berry.isConnected)return;
+
+    y+=speed;
+
+    berry.style.top=y+"px";
+
+    checkBerryCollision(berry);
+
+    if(y>area.clientHeight+60){
+
+      berry.remove();
+
+      return;
+    }
+
+    requestAnimationFrame(fall);
+  }
+
+  requestAnimationFrame(fall);
+}
+
+function checkBerryCollision(berry){
+
+  if(!berry.isConnected)return;
+
+  const br=berry.getBoundingClientRect();
+  const kr=basket.getBoundingClientRect();
+
+  const hit=
+    br.bottom>=kr.top &&
+    br.left<kr.right &&
+    br.right>kr.left &&
+    br.top<kr.bottom;
+
+  if(!hit)return;
+
+  const area=document.getElementById("berryArea");
+
+  const isReal=berry.dataset.real==="true";
+
+  const x=
+    berry.offsetLeft+berry.offsetWidth/2;
+
+  const y=
+    berry.offsetTop;
+
+  berry.remove();
+
+  if(isReal){
+
+    berries++;
+
+    updateScore2();
+
+    if(berries>=5){
+
+      clearInterval(berrySpawner);
+
+      setTimeout(startHeartGame,500);
+    }
+
+  }else{
+
+    showWrong(area,x,y,"อ๊ะ! ไม่ใช่ 🍓 😂");
+  }
+}
+
+
+/* =====================================================
+   GAME 3 — FALLING HEARTS
+===================================================== */
+
+let hearts=0;
+let heartSpawner=null;
+
+function startHeartGame(){
+
+  go("game3");
+
+  hearts=0;
+
+  clearInterval(heartSpawner);
+
+  const area=document.getElementById("heartArea");
+
+  area.innerHTML="";
+
+  updateScore3();
+
+  heartSpawner=setInterval(spawnHeart,600);
+
+  for(let i=0;i<3;i++){
+
+    setTimeout(spawnHeart,i*200);
+  }
+}
+
+function updateScore3(){
+
+  document.getElementById("score3")
+    .textContent=hearts+" / 5";
+}
+
+function spawnHeart(){
+
+  const area=document.getElementById("heartArea");
+
+  const heart=document.createElement("div");
+
+  const isReal=Math.random()<.60;
+
+  heart.className="falling-heart falling-object";
+
+  if(isReal){
+
+    heart.textContent=
+      Math.random()<.5 ? "💗" : "❤️";
+
+  }else{
+
+    heart.classList.add("fake-object");
+
+    const fake=[
+      "💜",
+      "💙",
+      "🖤",
+      "💛"
+    ];
+
+    heart.textContent=
+      fake[Math.floor(Math.random()*fake.length)];
+  }
+
+  const x=Math.random()*(area.clientWidth-50);
+
+  heart.style.left=x+"px";
+  heart.style.top="-50px";
+
+  area.appendChild(heart);
+
+  let y=-50;
+
+  const speed=1.7+Math.random()*1.5;
+
+  function fall(){
+
+    if(!heart.isConnected)return;
+
+    y+=speed;
+
+    heart.style.top=y+"px";
+
+    if(y>area.clientHeight+50){
+
+      heart.remove();
+      return;
+    }
+
+    requestAnimationFrame(fall);
+  }
+
+  requestAnimationFrame(fall);
+
+  heart.addEventListener("pointerdown",function(e){
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const rect=area.getBoundingClientRect();
+
+    const px=e.clientX-rect.left;
+    const py=e.clientY-rect.top;
+
+    heart.remove();
+
+    if(isReal){
+
+      hearts++;
+
+      updateScore3();
+
+      if(hearts>=5){
+
+        clearInterval(heartSpawner);
+
+        setTimeout(startBalloonGame,500);
+      }
+
+    }else{
+
+      showWrong(area,px,py);
+    }
+
+  });
+}
+
+
+/* =====================================================
+   GAME 4 — BALLOON WISHES
+===================================================== */
+
+let balloons=0;
+let balloonSpawner=null;
+
+const balloonMessages=[
+
+  "ยิ้มเยอะๆ นะ 😊",
+
+  "มีความสุขมากๆ ในทุกวันนะ 💗",
+
+  "ใช้ชีวิตให้สนุกกับทุกช่วงเวลาเลยนะ ✨",
+
+  "ขอให้เจอแต่เรื่องดีๆ เข้ามาในชีวิต 🌷",
+
+  "เหนื่อยเมื่อไหร่ก็อย่าลืมหันกลับมาพักนะ ☁️",
+
+  "ขอให้มีคนคอยอยู่ข้างๆ และซัพพอร์ตเสมอ 🤍",
+
+  "ขอให้ปีนี้เป็นปีที่น่าจดจำที่สุดนะ 🎂"
+];
+
+let usedBalloonMessages=[];
+
+function startBalloonGame(){
+
+  go("game4");
+
+  balloons=0;
+
+  usedBalloonMessages=[];
+
+  clearInterval(balloonSpawner);
+
+  const area=document.getElementById("balloonArea");
+
+  area.innerHTML="";
+
+  updateScore4();
+
+  balloonSpawner=setInterval(spawnBalloon,700);
+
+  for(let i=0;i<3;i++){
+
+    setTimeout(spawnBalloon,i*220);
+  }
+}
+
+function updateScore4(){
+
+  document.getElementById("score4")
+    .textContent=balloons+" / 7";
+}
+
+function spawnBalloon(){
+
+  const area=document.getElementById("balloonArea");
+
+  const balloon=document.createElement("div");
+
+  const isReal=Math.random()<.58;
+
+  balloon.className=
+    "falling-balloon falling-object";
+
+  balloon.dataset.real=isReal;
+
+  if(isReal){
+
+    balloon.textContent="🎈";
+
+  }else{
+
+    balloon.classList.add("fake-object");
+
+    const fake=[
+      "🎃",
+      "⚽",
+      "🫧",
+      "🎾"
+    ];
+
+    balloon.textContent=
+      fake[Math.floor(Math.random()*fake.length)];
+  }
+
+  const x=Math.random()*(area.clientWidth-55);
+
+  balloon.style.left=x+"px";
+
+  balloon.style.top=
+    (area.clientHeight+50)+"px";
+
+  area.appendChild(balloon);
+
+  let y=area.clientHeight+50;
+
+  const speed=1.2+Math.random()*1.1;
+
+  function float(){
+
+    if(!balloon.isConnected)return;
+
+    y-=speed;
+
+    balloon.style.top=y+"px";
+
+    if(y<-80){
+
+      balloon.remove();
+
+      return;
+    }
+
+    requestAnimationFrame(float);
+  }
+
+  requestAnimationFrame(float);
+
+  balloon.addEventListener("pointerdown",function(e){
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const rect=area.getBoundingClientRect();
+
+    const px=e.clientX-rect.left;
+    const py=e.clientY-rect.top;
+
+    balloon.remove();
+
+    if(isReal){
+
+      balloon.classList.add("balloon-pop");
+
+      balloons++;
+
+      updateScore4();
+
+      showBalloonMessage(area,px,py);
+
+      if(balloons>=7){
+
+        clearInterval(balloonSpawner);
+
+        setTimeout(()=>{
+
+          go("michaWish");
+
+        },1400);
+
+      }
+
+    }else{
+
+      showWrong(area,px,py,"อ๊ะ! ลูกโป่งหลอก 😂");
+    }
+
+  });
+}
+
+
+/* =====================================================
+   BALLOON MESSAGE
+===================================================== */
+
+function showBalloonMessage(area,x,y){
+
+  let message;
+
+  do{
+
+    message=
+      balloonMessages[
+        Math.floor(
+          Math.random()*balloonMessages.length
+        )
+      ];
+
+  }while(
+    usedBalloonMessages.includes(message)
+  );
+
+  usedBalloonMessages.push(message);
+
+  const box=document.createElement("div");
+
+  box.className="balloon-message";
+
+  box.innerHTML=
+    message+
+    "<small>💗 ข้อความเล็กๆ สำหรับ Micha</small>";
+
+  area.appendChild(box);
+
+  setTimeout(()=>{
+
+    box.remove();
+
+  },1250);
+}
+
+
+/* =====================================================
+   MICHA WISH
+===================================================== */
+
+function saveWish(){
+
+  const input=
+    document.getElementById("wishInput");
+
+  const wish=input.value.trim();
+
+  if(!wish){
+
+    input.placeholder=
+      "เขียนคำอวยพรให้ตัวเองสักข้อนะ 💗";
+
+    input.focus();
+
+    return;
+  }
+
+  localStorage.setItem(
+    "michaBirthdayWish",
+    wish
+  );
+
+  go("cake");
+}
+
+
+/* =====================================================
+   CAKE BLOW
+===================================================== */
+
+let blowEnergy=0;
+let lastBlow=0;
+let decreaseTimer=null;
+let cakeFinished=false;
+
+function blow(){
+
+  if(cakeFinished)return;
+
+  blowEnergy=Math.min(
+    100,
+    blowEnergy+7
+  );
+
+  lastBlow=Date.now();
+
+  updateBlow();
+
+  clearInterval(decreaseTimer);
+
+  decreaseTimer=setInterval(()=>{
+
+    if(Date.now()-lastBlow>180){
+
+      blowEnergy=Math.max(
+        0,
+        blowEnergy-1
+      );
+
+      updateBlow();
+    }
+
+  },100);
+
+  if(blowEnergy>=100){
+
+    finishCake();
+  }
+}
+
+function updateBlow(){
+
+  document.getElementById("blowFill")
+    .style.width=blowEnergy+"%";
+}
+
+function finishCake(){
+
+  cakeFinished=true;
+
+  clearInterval(decreaseTimer);
+
+  document.getElementById("flame")
+    .style.display="none";
+
+  createConfetti();
+
+  setTimeout(()=>{
+
+    go("ourMessage");
+
+  },1500);
+}
+
+
+/* =====================================================
+   CONFETTI
+===================================================== */
+
+function createConfetti(){
+
+  const screen=document.getElementById("cake");
+
+  const symbols=[
+    "💗",
+    "✨",
+    "🌸",
+    "🎀",
+    "⭐",
+    "💫"
+  ];
+
+  for(let i=0;i<55;i++){
+
+    const c=document.createElement("div");
+
+    c.className="confetti";
+
+    c.textContent=
+      symbols[
+        Math.floor(
+          Math.random()*symbols.length
+        )
+      ];
+
+    c.style.left=
+      Math.random()*100+"%";
+
+    c.style.top=
+      (-10-Math.random()*20)+"%";
+
+    c.style.animationDelay=
+      Math.random()*.6+"s";
+
+    c.style.fontSize=
+      (12+Math.random()*15)+"px";
+
+    screen.appendChild(c);
+
+    setTimeout(()=>c.remove(),2500);
+  }
+}
+
+
+/* =====================================================
+   FINAL
+===================================================== */
+
+function showEnding(){
+
+  const wish=
+    localStorage.getItem(
+      "michaBirthdayWish"
+    ) ||
+    "ขอให้ตัวเองมีความสุขมากๆ 💗";
+
+  document.getElementById("wishDisplay")
+    .textContent=wish;
+
+  go("ending");
+}
+
+
+/* =====================================================
+   MOBILE TOUCH / ZOOM PREVENTION
+===================================================== */
+
+let lastTouchEnd=0;
+
+document.addEventListener(
+  "touchend",
+  function(event){
+
+    const now=
+      new Date().getTime();
+
+    if(now-lastTouchEnd<=300){
+
+      event.preventDefault();
+    }
+
+    lastTouchEnd=now;
+
+  },
+  {passive:false}
+);
+
+document.addEventListener(
+  "gesturestart",
+  e=>e.preventDefault()
+);
+
+document.addEventListener(
+  "gesturechange",
+  e=>e.preventDefault()
+);
+
+document.addEventListener(
+  "gestureend",
+  e=>e.preventDefault()
+);
+
+</script>
+
+</body>
+</html>
+```
